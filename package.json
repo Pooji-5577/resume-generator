@@ -1,0 +1,31 @@
+{
+  "name": "professional-resume-builder",
+  "version": "1.0.0",
+  "description": "A professional resume builder with multiple templates and customization options",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "build": "echo 'No build process needed for static files'",
+    "test": "echo 'No tests specified'"
+  },
+  "keywords": [
+    "resume",
+    "builder",
+    "professional",
+    "templates",
+    "pdf",
+    "career"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/YOUR_USERNAME/resume-builder.git"
+  },
+  "homepage": "https://github.com/YOUR_USERNAME/resume-builder#readme"
+}

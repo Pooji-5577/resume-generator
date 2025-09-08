@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Resume Builder</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="main-header">
+        <div class="header-container">
+            <div class="logo">
+                <i class="fas fa-briefcase"></i>
+                <h1>Professional Resume Builder</h1>
+            </div>
+            <div class="header-tagline">
+                <p>Create stunning resumes with professional templates</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Resume Builder Section -->
+    <div class="resume-container">
+        <div class="form-panel">
+            <div class="form-header">
+                <h2><i class="fas fa-user-edit"></i> Build Your Professional Resume</h2>
+                <p>Create a standout resume with our professional templates and customization options</p>
+            </div>
+
+            <form id="resumeForm" class="resume-form">
+                <!-- Personal Information -->
+                <div class="form-section">
+                    <h3><i class="fas fa-user"></i> Personal Information</h3>
+                    <div class="form-grid">
+                        <input type="text" id="fullName" placeholder="Full Name *" required>
+                        <input type="email" id="email" placeholder="Email Address *" required>
+                        <input type="tel" id="phone" placeholder="Phone Number *" required>
+                        <input type="text" id="location" placeholder="City, State/Country">
+                        <input type="url" id="linkedin" placeholder="LinkedIn Profile">
+                        <input type="url" id="portfolio" placeholder="Portfolio/Website">
+                    </div>
+                </div>
+
+                <!-- Professional Summary -->
+                <div class="form-section">
+                    <h3><i class="fas fa-quote-left"></i> Professional Summary / Objective</h3>
+                    <textarea id="summary" placeholder="Write a compelling 2-3 sentence summary highlighting your key qualifications and career objectives..." rows="4"></textarea>
+                </div>
+
+                <!-- Education -->
+                <div class="form-section">
+                    <h3><i class="fas fa-graduation-cap"></i> Education</h3>
+                    <div id="educationContainer">
+                        <div class="education-item">
+                            <div class="form-grid">
+                                <input type="text" class="degree" placeholder="Degree/Certification *">
+                                <input type="text" class="institution" placeholder="Institution Name *">
+                                <input type="text" class="eduDuration" placeholder="Year (e.g., 2018-2022)">
+                                <input type="text" class="gpa" placeholder="GPA (optional)">
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="add-btn" onclick="addEducation()">
+                        <i class="fas fa-plus"></i> Add Education
+                    </button>
+                </div>
+
+                <!-- Work Experience -->
+                <div class="form-section">
+                    <h3><i class="fas fa-briefcase"></i> Work Experience</h3>
+                    <div id="experienceContainer">
+                        <div class="experience-item">
+                            <div class="form-grid">
+                                <input type="text" class="jobTitle" placeholder="Job Title *">
+                                <input type="text" class="company" placeholder="Company Name *">
+                                <input type="text" class="duration" placeholder="Duration (e.g., Jan 2020 - Present)">
+                                <input type="text" class="jobLocation" placeholder="Location">
+                            </div>
+                            <textarea class="jobDescription" placeholder="Describe your key responsibilities and achievements. Use bullet points and action verbs..." rows="4"></textarea>
+                        </div>
+                    </div>
+                    <button type="button" class="add-btn" onclick="addExperience()">
+                        <i class="fas fa-plus"></i> Add Experience
+                    </button>
+                </div>
+
+                <!-- Projects -->
+                <div class="form-section">
+                    <h3><i class="fas fa-project-diagram"></i> Projects</h3>
+                    <div id="projectsContainer">
+                        <div class="project-item">
+                            <div class="form-grid">
+                                <input type="text" class="projectName" placeholder="Project Name">
+                                <input type="text" class="projectTech" placeholder="Technologies Used">
+                            </div>
+                            <textarea class="projectDescription" placeholder="Describe the project, your role, and key achievements..." rows="3"></textarea>
+                        </div>
+                    </div>
+                    <button type="button" class="add-btn" onclick="addProject()">
+                        <i class="fas fa-plus"></i> Add Project
+                    </button>
+                </div>
+
+                <!-- Skills -->
+                <div class="form-section">
+                    <h3><i class="fas fa-cogs"></i> Skills</h3>
+                    <div class="skills-input">
+                        <input type="text" id="skillInput" placeholder="Add a skill and press Enter">
+                        <div id="skillsList" class="skills-list"></div>
+                    </div>
+                </div>
+
+                <!-- Languages -->
+                <div class="form-section">
+                    <h3><i class="fas fa-language"></i> Languages</h3>
+                    <div id="languagesContainer">
+                        <div class="language-item">
+                            <div class="form-grid">
+                                <input type="text" class="languageName" placeholder="Language">
+                                <select class="languageLevel">
+                                    <option value="">Proficiency Level</option>
+                                    <option value="Native">Native</option>
+                                    <option value="Fluent">Fluent</option>
+                                    <option value="Proficient">Proficient</option>
+                                    <option value="Intermediate">Intermediate</option>
+                                    <option value="Basic">Basic</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="add-btn" onclick="addLanguage()">
+                        <i class="fas fa-plus"></i> Add Language
+                    </button>
+                </div>
+
+                <!-- Awards and Honors -->
+                <div class="form-section">
+                    <h3><i class="fas fa-trophy"></i> Awards & Honors</h3>
+                    <div id="awardsContainer">
+                        <div class="award-item">
+                            <div class="form-grid">
+                                <input type="text" class="awardName" placeholder="Award/Honor Name">
+                                <input type="text" class="awardOrganization" placeholder="Organization">
+                                <input type="text" class="awardYear" placeholder="Year">
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="add-btn" onclick="addAward()">
+                        <i class="fas fa-plus"></i> Add Award
+                    </button>
+                </div>
+
+                <!-- Interests -->
+                <div class="form-section">
+                    <h3><i class="fas fa-heart"></i> Interests</h3>
+                    <div class="interests-input">
+                        <input type="text" id="interestInput" placeholder="Add an interest and press Enter">
+                        <div id="interestsList" class="interests-list"></div>
+                    </div>
+                </div>
+
+                <!-- Template Selection -->
+                <div class="form-section">
+                    <h3><i class="fas fa-palette"></i> Choose Template & Style</h3>
+                    
+                    <!-- Template Options -->
+                    <div class="template-selection">
+                        <div class="template-option active" data-template="modern">
+                            <i class="fas fa-file-alt"></i>
+                            <span>Modern</span>
+                            <small>Clean & Contemporary</small>
+                        </div>
+                        <div class="template-option" data-template="classic">
+                            <i class="fas fa-file"></i>
+                            <span>Classic</span>
+                            <small>Traditional & Formal</small>
+                        </div>
+                        <div class="template-option" data-template="creative">
+                            <i class="fas fa-paint-brush"></i>
+                            <span>Creative</span>
+                            <small>Stylish & Unique</small>
+                        </div>
+                        <div class="template-option" data-template="executive">
+                            <i class="fas fa-user-tie"></i>
+                            <span>Executive</span>
+                            <small>Professional & Bold</small>
+                        </div>
+                        <div class="template-option" data-template="minimal">
+                            <i class="fas fa-minus"></i>
+                            <span>Minimal</span>
+                            <small>Simple & Clean</small>
+                        </div>
+                        <div class="template-option" data-template="tech">
+                            <i class="fas fa-code"></i>
+                            <span>Tech</span>
+                            <small>Developer Focused</small>
+                        </div>
+                    </div>
+
+                    <!-- Font Selection -->
+                    <div class="style-options">
+                        <div class="style-group">
+                            <label for="fontFamily"><i class="fas fa-font"></i> Font Family</label>
+                            <select id="fontFamily" class="style-select">
+                                <option value="Inter">Inter (Modern)</option>
+                                <option value="Times New Roman">Times New Roman (Classic)</option>
+                                <option value="Arial">Arial (Clean)</option>
+                                <option value="Calibri">Calibri (Professional)</option>
+                                <option value="Georgia">Georgia (Elegant)</option>
+                                <option value="Helvetica">Helvetica (Swiss)</option>
+                                <option value="Open Sans">Open Sans (Friendly)</option>
+                                <option value="Roboto">Roboto (Tech)</option>
+                                <option value="Lato">Lato (Humanist)</option>
+                                <option value="Montserrat">Montserrat (Geometric)</option>
+                            </select>
+                        </div>
+
+                        <div class="style-group">
+                            <label for="fontSize"><i class="fas fa-text-height"></i> Font Size</label>
+                            <select id="fontSize" class="style-select">
+                                <option value="small">Small (10-11pt)</option>
+                                <option value="medium" selected>Medium (11-12pt)</option>
+                                <option value="large">Large (12-13pt)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Color Scheme Selection -->
+                    <div class="color-options">
+                        <label><i class="fas fa-palette"></i> Color Scheme</label>
+                        <div class="color-schemes">
+                            <div class="color-scheme active" data-colors="default">
+                                <div class="color-preview">
+                                    <span style="background: #4f46e5;"></span>
+                                    <span style="background: #7c3aed;"></span>
+                                    <span style="background: #1e293b;"></span>
+                                </div>
+                                <span>Professional Blue</span>
+                            </div>
+                            <div class="color-scheme" data-colors="green">
+                                <div class="color-preview">
+                                    <span style="background: #059669;"></span>
+                                    <span style="background: #0d9488;"></span>
+                                    <span style="background: #1e293b;"></span>
+                                </div>
+                                <span>Success Green</span>
+                            </div>
+                            <div class="color-scheme" data-colors="purple">
+                                <div class="color-preview">
+                                    <span style="background: #7c3aed;"></span>
+                                    <span style="background: #a855f7;"></span>
+                                    <span style="background: #1e293b;"></span>
+                                </div>
+                                <span>Creative Purple</span>
+                            </div>
+                            <div class="color-scheme" data-colors="red">
+                                <div class="color-preview">
+                                    <span style="background: #dc2626;"></span>
+                                    <span style="background: #ef4444;"></span>
+                                    <span style="background: #1e293b;"></span>
+                                </div>
+                                <span>Bold Red</span>
+                            </div>
+                            <div class="color-scheme" data-colors="orange">
+                                <div class="color-preview">
+                                    <span style="background: #ea580c;"></span>
+                                    <span style="background: #f97316;"></span>
+                                    <span style="background: #1e293b;"></span>
+                                </div>
+                                <span>Energy Orange</span>
+                            </div>
+                            <div class="color-scheme" data-colors="gray">
+                                <div class="color-preview">
+                                    <span style="background: #374151;"></span>
+                                    <span style="background: #6b7280;"></span>
+                                    <span style="background: #1e293b;"></span>
+                                </div>
+                                <span>Elegant Gray</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Custom Colors -->
+                    <div class="custom-colors">
+                        <h4><i class="fas fa-brush"></i> Custom Colors</h4>
+                        <div class="color-inputs">
+                            <div class="color-input-group">
+                                <label for="primaryColor">Primary Color</label>
+                                <input type="color" id="primaryColor" value="#4f46e5">
+                            </div>
+                            <div class="color-input-group">
+                                <label for="secondaryColor">Secondary Color</label>
+                                <input type="color" id="secondaryColor" value="#7c3aed">
+                            </div>
+                            <div class="color-input-group">
+                                <label for="textColor">Text Color</label>
+                                <input type="color" id="textColor" value="#1e293b">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="form-actions">
+                    <button type="button" class="btn btn-preview" onclick="generatePreview()">
+                        <i class="fas fa-eye"></i> Preview Resume
+                    </button>
+                    <button type="button" class="btn btn-download" onclick="downloadResume()">
+                        <i class="fas fa-download"></i> Download PDF
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Preview Panel -->
+        <div class="preview-panel">
+            <div class="preview-header">
+                <h3><i class="fas fa-eye"></i> Live Preview</h3>
+                <div class="preview-actions">
+                    <button class="btn-icon" onclick="refreshPreview()" title="Refresh Preview">
+                        <i class="fas fa-sync"></i>
+                    </button>
+                </div>
+            </div>
+            <div id="resumePreview" class="resume-preview">
+                <div class="preview-placeholder">
+                    <i class="fas fa-file-alt"></i>
+                    <p>Fill out the form to see your resume preview</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="config.js"></script>
+    <script src="resume-builder.js"></script>
+</body>
+</html>
